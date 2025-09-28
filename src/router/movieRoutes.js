@@ -13,6 +13,7 @@ const upload = multer({ storage: storage });
 
 const router = express.Router();
 
+
 router.post("/", upload.array("images"), createMovie); // Allow multiple images
 router.get("/", getMovies); // Get all movies
 router.get("/:id", getMovieById); // Get single movie

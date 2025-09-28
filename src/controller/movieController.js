@@ -11,24 +11,18 @@ import { asyncHandler } from "../utils/ErrorResponse/asyncHandler.js";
 
 // --- Create a new movie ---
 export const createMovie = asyncHandler(async (req, res) => {
-  const posterUrls = [];
-
+  let posterUrls = [];
+  console.log("reached");
   if (req.files && req.files.length > 0) {
-    // Asynchronously upload all files to Cloudinary
-    const uploadPromises = req.files.map((file) =>
-      uploadFileToCloudinary(file, "movie-posters")
-    );
-    const uploadResults = await Promise.all(uploadPromises);
+    let uploadResults = await uploadFileToCloudinary(req.files);
 
-    // Collect the URLs and public IDs from the upload results
-    uploadResults.forEach((result) => {
-      posterUrls.push({
-        secureUrl: result.secure_url,
-        public_id: result.public_id,
-      });
-    });
+    console.log("uploadResults:" ,  uploadResults);
+
+    posterUrls = uploadResults.map((result) => ({
+      secure_url: result.secure_url,
+      public_id: result.public_id,
+    }));
   }
-
   const movie = new movieSchema({
     ...req.body,
     posterUrls: posterUrls,

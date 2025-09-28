@@ -14,14 +14,13 @@ const app = express();
 app.use(cors()); // enable CORS for all routes
 app.use(morgan("dev")); // log requests
 app.use(bodyParser.json()); // parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // parse form-data 
 
 // ===== Routes =====
 app.get("/", (req, res) => {
   res.send("Hello from Backend!");
 });
 
-app.use("/api" , allRoute)
+app.use("/api", allRoute);
 
 // ===== Start Server =====
 const PORT = process.env.PORT || 5000;
