@@ -35,6 +35,8 @@ const movieSchema = new mongoose.Schema(
     isFamilyFriendly: { type: Boolean, default: false },
     isOscarWinner: { type: Boolean, default: false },
     isCriticallyAcclaimed: { type: Boolean, default: false },
+    isRecommended: { type: Boolean, default: false },
+    isTrending: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
